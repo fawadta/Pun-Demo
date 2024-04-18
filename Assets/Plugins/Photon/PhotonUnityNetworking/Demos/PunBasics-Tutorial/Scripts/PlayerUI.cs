@@ -129,7 +129,7 @@ namespace Photon.Pun.Demo.PunBasics
             targetRenderer = this.target.GetComponentInChildren<Renderer>();
 
 
-            CharacterController _characterController = this.target.GetComponent<CharacterController> ();
+            CharacterController _characterController = target.GetComponent<CharacterController> ();
 
 			// Get data from the Player that won't change during the lifetime of this Component
 			if (_characterController != null){

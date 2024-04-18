@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Com.MyCompany.MyGame
 {
-    public class PlayerAnimatorManager : MonoBehaviour
+    public class PlayerAnimatorManager : MonoBehaviourPun
     {
         #region Private Fields
 
@@ -24,6 +25,8 @@ namespace Com.MyCompany.MyGame
         // Update is called once per frame
         void Update()
         {
+            if (!photonView.IsMine && PhotonNetwork.IsConnected)
+                return;
             // Prevent control is connected to Photon and represent the localPlayer
             // if (photonView.IsMine == false && PhotonNetwork.IsConnected == true)
             // {

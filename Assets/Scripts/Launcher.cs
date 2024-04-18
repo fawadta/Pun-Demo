@@ -6,7 +6,6 @@ using Photon.Realtime;
 
 namespace Com.MyCompany.MyGame
 {
-
     public class Launcher : MonoBehaviourPunCallbacks
     {
         #region Private Serializable Fields
@@ -16,6 +15,7 @@ namespace Com.MyCompany.MyGame
 
         #region  Private Fields
 
+        [SerializeField] GameObject loadingPanel;
         [SerializeField] GameObject controlPanel;
         [SerializeField] GameObject progressLabel;
         string gameVersion = "1";
@@ -31,8 +31,9 @@ namespace Com.MyCompany.MyGame
         // Start is called before the first frame update
         void Start()
         {
+            loadingPanel.SetActive(true);
+            controlPanel.SetActive(false);
             progressLabel.SetActive(false);
-            controlPanel.SetActive(true);
             if (!PhotonNetwork.IsConnected)
             {
                 PhotonNetwork.ConnectUsingSettings();
@@ -65,11 +66,16 @@ namespace Com.MyCompany.MyGame
         public override void OnConnectedToMaster()
         {
             Debug.Log("OnCOnnectedToMaster() was called");
+            loadingPanel.SetActive(false);
+            controlPanel.SetActive(true);
+            progressLabel.SetActive(false);
+
         }
         public override void OnDisconnected(DisconnectCause cause)
         {
+            loadingPanel.SetActive(true);
+            controlPanel.SetActive(false);
             progressLabel.SetActive(false);
-            controlPanel.SetActive(true);
             Debug.LogWarningFormat("OnDisconnectedFromMaster() was called with reason {0}", cause);
         }
 

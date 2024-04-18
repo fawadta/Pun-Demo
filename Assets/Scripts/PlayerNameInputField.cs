@@ -6,7 +6,7 @@ using Photon.Realtime;
 using Photon.Pun;
 using TMPro;
 
-namespace Com.MyCompany.MyGame1
+namespace Com.MyCompany.MyGame
 {
     // Player name input field.
     // [RequireComponent(typeof(InputField))]
