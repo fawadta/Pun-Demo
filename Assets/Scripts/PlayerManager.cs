@@ -14,7 +14,6 @@ namespace Com.MyCompany.MyGame
         [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
         public static GameObject LocalPlayerInstance;
 
-
         #endregion
         [SerializeField] GameObject playerUiPrefab;
 
@@ -33,14 +32,14 @@ namespace Com.MyCompany.MyGame
             }
             // #Critical
             // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         /// <summary>
         /// MonoBehaviour method called on GameObject by Unity during initialization phase.
         /// </summary>
         public void Start()
         {
-            CameraWork _cameraWork = gameObject.GetComponent<CameraWork>();
+            CameraWork _cameraWork = GetComponent<CameraWork>();
 
             if (_cameraWork != null)
             {

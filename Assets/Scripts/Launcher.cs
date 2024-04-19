@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.UI;
+using TMPro;
 
 namespace Com.MyCompany.MyGame
 {
@@ -18,6 +20,10 @@ namespace Com.MyCompany.MyGame
         [SerializeField] GameObject loadingPanel;
         [SerializeField] GameObject controlPanel;
         [SerializeField] GameObject progressLabel;
+
+        [SerializeField] TMP_InputField creatRoomInput;
+        [SerializeField] TMP_InputField joinRoomInput;
+
         string gameVersion = "1";
 
         #endregion
@@ -25,7 +31,7 @@ namespace Com.MyCompany.MyGame
         #region  MonoBehavior CallBacks
         private void Awake()
         {
-            PhotonNetwork.AutomaticallySyncScene = true;
+            //PhotonNetwork.AutomaticallySyncScene = true;
         }
 
         // Start is called before the first frame update
@@ -34,6 +40,7 @@ namespace Com.MyCompany.MyGame
             loadingPanel.SetActive(true);
             controlPanel.SetActive(false);
             progressLabel.SetActive(false);
+
             if (!PhotonNetwork.IsConnected)
             {
                 PhotonNetwork.ConnectUsingSettings();
@@ -46,26 +53,46 @@ namespace Com.MyCompany.MyGame
         /// <summary>
         /// Start the connection process.
         /// - If already connected, we attempt joining a random room
-        /// - If not yet connected, connect this application instance to cloud network
         /// </summary>
-        public void Connect()
+        public void CreateRoom()
         {
             progressLabel.SetActive(true);
             controlPanel.SetActive(false);
 
-            // check if connected or not, join if connected, else initialize the connection
+            // check if connected or not, join if connected
             if (PhotonNetwork.IsConnected)
             {
-                PhotonNetwork.JoinRandomRoom();
+                //PhotonNetwork.JoinRandomRoom();
+                PhotonNetwork.CreateRoom(creatRoomInput.text);
+                //PhotonNetwork.JoinRoom("first");
             }
         }
+        public void JoinRoom()
+        {
+            progressLabel.SetActive(true);
+            controlPanel.SetActive(false);
 
+            if (PhotonNetwork.IsConnected)
+            {
+                PhotonNetwork.JoinRoom(joinRoomInput.text);
+            }
+        }
+        public void QuitApplication()
+        {
+            Application.Quit();
+        }
         #endregion
 
         #region MonoBehaviorPunCallbacks Callbacks
         public override void OnConnectedToMaster()
         {
             Debug.Log("OnCOnnectedToMaster() was called");
+
+            PhotonNetwork.JoinLobby();
+
+        }
+        public override void OnJoinedLobby()
+        {
             loadingPanel.SetActive(false);
             controlPanel.SetActive(true);
             progressLabel.SetActive(false);
@@ -86,15 +113,19 @@ namespace Com.MyCompany.MyGame
             // failed to join, either rooms are full or none exists. create new room
             PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
         }
+        public override void OnCreatedRoom()
+        {
+            Debug.Log("OncreatedRoom() was called.");
+        }
 
         public override void OnJoinedRoom()
         {
             Debug.Log("OnJoinedRoom() was called. Now this client is in the room");
-            if (PhotonNetwork.CurrentRoom.PlayerCount >= 1)
-            {
-                Debug.Log("Loading the room for 2");
-                PhotonNetwork.LoadLevel("Room for 2");
-            }
+            //if (PhotonNetwork.CurrentRoom.PlayerCount >= 1)
+            //{
+            //Debug.Log("Loading the room for 2");
+            PhotonNetwork.LoadLevel("Multiplayer Room");
+            //}
         }
 
         #endregion
