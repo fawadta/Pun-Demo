@@ -90,7 +90,7 @@ namespace Com.MyCompany.MyGame
         public override void OnJoinedRoom()
         {
             Debug.Log("OnJoinedRoom() was called. Now this client is in the room");
-            if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+            if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
             {
                 Debug.Log("Loading the room for 2");
                 PhotonNetwork.LoadLevel("Room for 2");
