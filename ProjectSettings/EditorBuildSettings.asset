@@ -5,10 +5,14 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Avataris_Subrepos/Multiplayer/Pun2 Demo/Scenes/Pun2 Home.unity
     guid: 1d2332a072157493a9499b64a0986e26
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Avataris_Subrepos/Multiplayer/Pun2 Demo/Scenes/Multiplayer Room.unity
     guid: d62881d323c7c4a7fb1583d78d383ecb
-  m_configObjects: {}
+  - enabled: 1
+    path: Assets/Webgl/Webgl.unity
+    guid: 9945f7bd848ad4c84a54d2c5b2939253
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 392d87b022a6343b9820ca1e7d5ab5ed, type: 2}
